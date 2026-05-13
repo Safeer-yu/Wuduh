@@ -16,6 +16,24 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ```bash 
 pip install -r requirements.txt
 ```
+
+## Arabic OCR Dependencies (Ubuntu/WSL)
+
+Run this once before using the Arabic text extractor:
+
+```bash
+# Fix any broken packages first (important on Ubuntu/WSL)
+sudo apt-get update
+sudo apt-get install -f
+sudo dpkg --configure -a
+
+# System dependencies
+sudo apt-get install libarchive13t64 poppler-utils tesseract-ocr tesseract-ocr-ara
+
+# Python dependencies
+pip install pytesseract Pillow
+```
+
 ### Copy the template file to create your own 
 `.env` file:
    ```bash

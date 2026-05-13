@@ -16,3 +16,10 @@ env/
 # Vector database storage (if you're using a local one like ChromaDB)
 db/
 *.sqlite
+data/raw/
+data/
+diagnostics/
+
+
+
+TODO_.md

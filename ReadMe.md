@@ -1,6 +1,6 @@
 # Wuduh
-## UAE Government & Legal Assistant
-Building a RAG tool that will help people in the uae clarify some rules
+## UAE Legal Assistant
+Building a RAG tool that will help people in the uae clarify labor rules
 
 
 ## Environment Setup

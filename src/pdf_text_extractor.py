@@ -7,8 +7,7 @@ from collections import Counter
 
 def get_repeated_lines(doc, min_repeat_ratio=0.4):
     """
-    Detect repeated lines across many pages
-    (likely headers/footers).
+    Detect repeated lines across many pages (like headers/footers).
     """
 
     num_pages = len(doc)

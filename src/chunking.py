@@ -20,7 +20,7 @@ def split_into_articles(raw_text: str) -> list[tuple[str, str]]:
         part = part.strip()
         if not part:
             continue
-        match = re.match(r'Article\s*\(?\s*(\d+)\s*\)?', part)
+        match = re.match(r'Article\s*\(?\s*(\d+)\s*\)?', part) # article number
         if match:
             articles.append((match.group(1), part))
     return articles
@@ -81,12 +81,27 @@ def build_chunks(raw_text: str, law_name: str, version_year: int,
     articles = split_into_articles(raw_text)
     all_chunks = []
     
+    law_id = source_file.replace(".txt", "")[:20].replace(" ", "_").lower()
+    
+    # Track seen IDs within this file to catch duplicates
+    seen_ids = {}
+
     for article_num, article_text in articles:
         sub_chunks = chunk_article(article_num, article_text)
         
         for i, chunk_text in enumerate(sub_chunks):
             section = str(i + 1) if len(sub_chunks) > 1 else None
             
+            base_id = f"{law_id}_art{article_num}_{'s'+str(i+1) if section else 'full'}_{language}_{version_year}"
+            
+            # If ID already seen, append a counter to make it unique
+            if base_id in seen_ids:
+                seen_ids[base_id] += 1
+                chunk_id = f"{base_id}_dup{seen_ids[base_id]}"
+            else:
+                seen_ids[base_id] = 0
+                chunk_id = base_id
+
             metadata = {
                 "article_number": article_num,
                 "law_name": law_name,
@@ -94,7 +109,7 @@ def build_chunks(raw_text: str, law_name: str, version_year: int,
                 "language": language,
                 "source_file": source_file,
                 "section": section,
-                "chunk_id": f"art{article_num}_{'s'+str(i+1) if section else 'full'}_{language}_{version_year}"
+                "chunk_id": chunk_id
             }
             all_chunks.append(LawChunk(text=chunk_text, metadata=metadata))
     
@@ -103,7 +118,7 @@ def build_chunks(raw_text: str, law_name: str, version_year: int,
 
 # Configure files
 TEXT_DIR = "data/processed/eng"   
-OUTPUT_FILE = "data/chunks.json"
+OUTPUT_FILE = "data/chunks/eng/chunks.json"
 
 FILE_METADATA = {
     "Cabinet Decision No. 106 of 2022 pertaining to the executive regulations of Federal Decree Law No. 9 of 2022.txt": {

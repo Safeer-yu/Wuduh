@@ -9,7 +9,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 CHROMA_DIR  = "data/chromadb"
 COLLECTION  = "uae_labor_law"
 EMBED_MODEL = "text-embedding-3-small"
-TOP_K       = 5 
+TOP_K       = 7 
 LLM_MODEL = "gpt-4o"
 
 

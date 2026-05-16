@@ -45,3 +45,8 @@ pip install pytesseract Pillow
 ``` bash
 conda activate wuduh-env
 ```
+
+## Running the Application
+``` bash
+streamlit run src/app.py
+```

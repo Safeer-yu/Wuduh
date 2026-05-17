@@ -1,5 +1,5 @@
 # Base image — slim keeps it small
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 # Set working directory inside the container
 WORKDIR /app
@@ -15,8 +15,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 COPY data/chunks/ ./data/chunks/
 
+# Copy startup script
+COPY start.sh .
+RUN chmod +x start.sh
+
 # Expose Streamlit's default port
 EXPOSE 8501
 
-# Run the app
-CMD ["streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Use startup script instead of directly running streamlit
+CMD ["./start.sh"]
+

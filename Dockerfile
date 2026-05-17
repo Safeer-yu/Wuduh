@@ -14,6 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the project
 COPY src/ ./src/
 COPY data/chunks/ ./data/chunks/
+COPY data/chromadb/ ./data/chromadb/
 
 # Copy startup script
 COPY start.sh .

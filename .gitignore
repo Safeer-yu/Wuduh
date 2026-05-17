@@ -17,7 +17,12 @@ env/
 db/
 *.sqlite
 # Exclude data folder except chunks.json
-data/
+# Exclude data folder
+data/*
+
+# But keep chunks.json
+!data/chunks/
+!data/chunks/eng/
 !data/chunks/eng/chunks.json
 
 # OS files

@@ -1,0 +1,34 @@
+{
+    "family": "wuduh-task",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "512",
+    "memory": "1024",
+    "executionRoleArn": "arn:aws:iam::825765383874:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+        {
+            "name": "wuduh",
+            "image": "825765383874.dkr.ecr.us-east-1.amazonaws.com/wuduh:latest",
+            "portMappings": [
+                {
+                    "containerPort": 8501,
+                    "protocol": "tcp"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "OPENAI_API_KEY",
+                    "valueFrom": "arn:aws:secretsmanager:us-east-1:825765383874:secret:wuduh/openai-api-key-sOPR0X"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/wuduh",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ]
+}

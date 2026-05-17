@@ -18,8 +18,7 @@ db/
 *.sqlite
 # Exclude data folder except chunks.json
 data/
-!data/chunks/eng/chunk.json
-
+!data/chunks/eng/chunks.json
 
 # OS files
 .DS_Store
